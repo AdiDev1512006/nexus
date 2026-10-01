@@ -1,17 +1,38 @@
-print("NEXUS server starting...")
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from core.command_processor import process_command
 
-while True:
-    command = input("NEXUS > ")
+app = FastAPI(title="NEXUS")
 
-    if command.lower() == "status":
-        print("NEXUS is online.")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-    elif command.lower() == "hello":
-        print("Hello from NEXUS.")
+class CommandRequest(BaseModel):
+    command: str
 
-    elif command.lower() == "exit":
-        print("NEXUS shutting down.")
-        break
+@app.get("/")
+def root():
+    return {
+        "system": "NEXUS",
+        "status": "online"
+    }
 
-    else:
-        print("Unknown command.")
+@app.get("/status")
+def status():
+    return {
+        "system": "NEXUS",
+        "status": "online"
+    }
+
+@app.post("/command")
+def command(request: CommandRequest):
+    response = process_command(request.command)
+    return {
+        "command": request.command,
+        "response": response
+    }
