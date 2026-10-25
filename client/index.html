@@ -19,7 +19,7 @@
     <script>
         async function sendCommand() {
             const command = document.getElementById("commandInput").value;
-            const response = await fetch("http://192.168.1.5:8000/command", {
+            const response = await fetch("http://192.168.1.3:8000/command", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
