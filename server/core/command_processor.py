@@ -37,77 +37,46 @@ COMMANDS = {
         "category": "device",
         "intent": "device.status",
         "device": "tv",
-        "action": "get_status",
-        "execution_status": "not_connected",
-        "response": (
-            "The TV integration is not connected yet."
-        )
+        "action": "get_status"
     },
     "turn on the tv": {
         "category": "device",
         "intent": "device.power_on",
         "device": "tv",
-        "action": "power_on",
-        "execution_status": "not_connected",
-        "response": (
-            "I understood your request, but the TV "
-            "integration is not connected yet."
-        )
+        "action": "power_on"
     },
     "turn off the tv": {
         "category": "device",
         "intent": "device.power_off",
         "device": "tv",
         "action": "power_off",
-        "execution_status": "not_connected",
-        "response": (
-            "I understood your request, but the TV "
-            "integration is not connected yet."
-        )
+        "execution_status": "not_connected"
     },
     # LIGHT COMMANDS
     "lights status": {
         "category": "device",
         "intent": "device.status",
         "device": "lights",
-        "action": "get_status",
-        "execution_status": "not_connected",
-        "response": (
-            "A light controller has not been configured yet."
-        )
+        "action": "get_status"
     },
     "turn on the lights": {
         "category": "device",
         "intent": "device.power_on",
         "device": "lights",
-        "action": "power_on",
-        "execution_status": "not_connected",
-        "response": (
-            "I understood your request, but a light controller "
-            "has not been configured yet."
-        )
+        "action": "power_on"
     },
     "turn off the lights": {
         "category": "device",
         "intent": "device.power_off",
         "device": "lights",
-        "action": "power_off",
-        "execution_status": "not_connected",
-        "response": (
-            "I understood your request, but a light controller "
-            "has not been configured yet."
-        )
+        "action": "power_off"
     },
     # CAMERA COMMANDS
     "camera status": {
         "category": "device",
         "intent": "device.status",
         "device": "camera",
-        "action": "get_status",
-        "execution_status": "not_connected",
-        "response": (
-            "The camera integration is not connected yet."
-        )
+        "action": "get_status"
     }
 }
 
@@ -181,6 +150,19 @@ def process_command(command: str) -> dict:
         }
 
     # Step 6: Return a structured result.
+    if command_details["category"] == "device":
+        return {
+            "command": command,
+            "normalized_command": normalized,
+            "matched_command": matched_command,
+            "recognized": True,
+            "category": "device",
+            "intent": command_details["intent"],
+            "device": command_details["device"],
+            "action": command_details["action"]
+        }
+
+    # Step 7: Return system and utility command results.
     return {
         "command": command,
         "normalized_command": normalized,
