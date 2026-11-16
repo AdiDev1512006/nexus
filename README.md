@@ -249,7 +249,7 @@ The API and client servers must both be running for the complete text-command in
 
 ### Phase 3 — Core Architecture
 
-* [ ] Separate device management from command interpretation.
+* [x] Separate device management from command interpretation.
 * [ ] Define a consistent interface for device integrations.
 * [ ] Implement simulated device handlers for development and testing.
 * [ ] Improve command routing and execution-result reporting.
@@ -293,10 +293,7 @@ NEXUS is being developed around the following principles:
 * **Maintainability:** Keep the architecture understandable and extensible.
 * **Learning by building:** Document technical decisions and develop each component with an understanding of its purpose.
 
-## Current Status
-
-NEXUS has progressed from initial network setup to a working prototype with a FastAPI backend, a rule-based command processor, and a separate web client.
-
-The current system supports text-based command submission and structured command recognition. Physical device integrations, voice interaction, and general natural-language understanding remain future development goals.
+# Author
+Aditya
 
 **NEXUS is an ongoing personal software engineering project.**
